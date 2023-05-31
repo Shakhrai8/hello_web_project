@@ -4,9 +4,9 @@ require 'sinatra/reloader'
 class Application < Sinatra::Base
 
   get '/hello' do
-    name = params[:name]
+    @name = params[:name]
 
-    return "Hello #{name}!"
+    return erb(:index)
   end
 
   post '/submit' do
@@ -22,6 +22,12 @@ class Application < Sinatra::Base
 
   get '/names' do
     return "Julia, Mary, Karim"
+  end
+
+  post '/sort-names' do
+    names = params[:names]
+    result = names.sort
+    return result.join(',')
   end
 
   configure :development do
